@@ -4,19 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abdullah Alkhalaf | Senior Network & Systems Manager</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* General styling for both English and Arabic */
+        /* --- General Styling --- */
         body {
             font-family: 'Inter', 'Noto Sans Arabic', sans-serif;
             background-color: #FDFBF7;
             color: #2c3e50;
         }
+
+        /* --- Components & Interactions --- */
         .nav-link {
             transition: color 0.3s, border-bottom-color 0.3s;
             border-bottom: 2px solid transparent;
@@ -46,6 +51,8 @@
             background-color: #2c3e50;
             color: white;
         }
+
+        /* --- Chart Container --- */
         .chart-container {
             position: relative;
             width: 100%;
@@ -53,7 +60,6 @@
             margin-left: auto;
             margin-right: auto;
             height: 300px;
-            max-height: 400px;
         }
         @media (min-width: 768px) {
             .chart-container {
@@ -61,13 +67,11 @@
             }
         }
 
-        /* Language modal styles */
+        /* --- Language Modal --- */
         #language-modal {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
@@ -77,81 +81,37 @@
         #language-modal.hidden {
             display: none;
         }
-        #language-modal-content {
-            background-color: white;
-            padding: 2.5rem;
-            border-radius: 1rem;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            max-width: 90%;
-        }
-        .language-button {
-            transition: all 0.2s;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 2px solid transparent;
-        }
-        .language-button:hover {
-            transform: scale(1.02);
-        }
         .language-button.selected {
             border-color: #4A90E2;
             background-color: #EFF6FF;
             color: #2c3e50;
         }
-        .confirm-btn {
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        .confirm-btn:hover {
-            transform: translateY(-2px);
-            background-color: #3b74b6;
-        }
-        @media (min-width: 768px) {
-            #language-modal-content {
-                max-width: 500px;
-            }
-        }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Language Selection Modal -->
     <div id="language-modal" class="font-sans">
-        <div id="language-modal-content" class="max-w-md mx-auto">
-            <!-- Image for the modal, now a larger rounded-square -->
+        <div id="language-modal-content" class="bg-white p-10 rounded-2xl shadow-2xl text-center max-w-sm md:max-w-md mx-auto">
             <img src="https://i.imgur.com/w9oOD9l.jpeg" alt="Abdullah Alkhalaf's Photo" class="rounded-xl mx-auto mb-4 w-48 h-48 object-cover">
             <h1 class="text-3xl font-bold mb-2">Abdullah Alkhalaf</h1>
             <p id="modal-text" class="text-gray-600 mb-8">Please choose a language for the resume</p>
             <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 mb-6">
-                <button id="lang-en" class="language-button w-full md:w-1/2 bg-white text-gray-800 font-bold py-3 px-6 rounded-lg">
-                    English
-                </button>
-                <button id="lang-ar" class="language-button w-full md:w-1/2 bg-white text-gray-800 font-bold py-3 px-6 rounded-lg">
-                    العربية
-                </button>
+                <button id="lang-en" class="language-button w-full md:w-1/2 bg-white text-gray-800 font-bold py-3 px-6 rounded-lg transition-all duration-200 border-2 border-transparent hover:scale-105 shadow-md">English</button>
+                <button id="lang-ar" class="language-button w-full md:w-1/2 bg-white text-gray-800 font-bold py-3 px-6 rounded-lg transition-all duration-200 border-2 border-transparent hover:scale-105 shadow-md">العربية</button>
             </div>
-            <button id="confirm-lang-button" class="confirm-btn w-full bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hidden">
-                Confirm
-            </button>
+            <button id="confirm-lang-button" class="w-full bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hidden transition-transform duration-200 hover:scale-105 shadow-lg">Confirm</button>
         </div>
     </div>
 
-    <!-- Main Resume Content (hidden until language is selected) -->
     <div id="resume-content" class="hidden">
-
         <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
             <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-                <!-- Image for the navigation header, now a rounded-square -->
-                <div class="text-2xl font-bold text-gray-800">
-                    <a href="#overview">
-                        <img src="https://i.imgur.com/w9oOD9l.jpeg" alt="Abdullah Alkhalaf's Photo" class="w-16 h-16 rounded-xl object-cover">
-                    </a>
-                </div>
+                <a href="#overview"><img src="https://i.imgur.com/w9oOD9l.jpeg" alt="Abdullah Alkhalaf's Photo" class="w-16 h-16 rounded-xl object-cover"></a>
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="#overview" class="nav-link font-semibold pb-1" data-key="nav-overview">Overview</a>
-                    <a href="#experience" class="nav-link font-semibold pb-1" data-key="nav-experience">Experience</a>
-                    <a href="#skills-projects" class="nav-link font-semibold pb-1" data-key="nav-skills">Skills & Projects</a>
-                    <a href="#contact" class="nav-link font-semibold pb-1" data-key="nav-contact">Contact</a>
+                    <a href="#overview" class="nav-link font-semibold" data-key="nav-overview">Overview</a>
+                    <a href="#experience" class="nav-link font-semibold" data-key="nav-experience">Experience</a>
+                    <a href="#skills-projects" class="nav-link font-semibold" data-key="nav-skills">Skills & Projects</a>
+                    <a href="#contact" class="nav-link font-semibold" data-key="nav-contact">Contact</a>
                 </div>
                 <div class="md:hidden">
                     <button id="mobile-menu-button" class="text-gray-800 focus:outline-none">
@@ -168,6 +128,7 @@
         </header>
 
         <main class="container mx-auto px-6 py-12">
+            
             <section id="overview" class="min-h-[80vh] flex flex-col justify-center items-center text-center">
                 <h1 class="text-4xl md:text-6xl font-bold leading-tight" data-key="name">Abdullah Alkhalaf</h1>
                 <p class="mt-4 text-xl md:text-2xl text-gray-600" data-key="title">Senior Network & Systems Manager | Aspiring IT Director</p>
@@ -182,7 +143,7 @@
                     </div>
                 </div>
             </section>
-
+            
             <section id="experience" class="py-20">
                 <h2 class="text-4xl font-bold text-center mb-12" data-key="experience-title">Professional Experience</h2>
                 <div class="flex justify-center mb-8">
@@ -215,24 +176,24 @@
                                 <li data-key="duty-2-1">Modernized network and data center infrastructure.</li>
                                 <li data-key="duty-2-2">Installed an advanced CCTV system.</li>
                                 <li data-key="duty-2-3">Supervised the new land surveying maps system project.</li>
-                                <li data-key="duty-2-4">Implemented multiple projects for the directorate\'s branches in various regions.</li>
+                                <li data-key="duty-2-4">Implemented multiple projects for the directorate's branches in various regions.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </section>
-
+            
             <section id="skills-projects" class="py-20 bg-gray-50 rounded-xl">
-                <h2 class="text-4xl font-bold text-center mb-16" data-key="skills-projects-title">Skills & Key Projects</h2>
-                <div class="grid md:grid-cols-2 gap-16 items-center">
-                    <div class="text-center">
+                 <h2 class="text-4xl font-bold text-center mb-16" data-key="skills-projects-title">Skills & Key Projects</h2>
+                 <div class="grid md:grid-cols-2 gap-16 items-center">
+                     <div class="text-center">
                         <h3 class="text-2xl font-bold mb-4" data-key="competencies-title">Core Competencies</h3>
                         <p class="text-gray-600 mb-6 max-w-md mx-auto" data-key="competencies-desc">A visual representation of key skill areas, demonstrating a well-rounded expertise in technical, strategic, and managerial domains.</p>
                         <div class="chart-container">
-                            <canvas id="skillsChart"></canvas>
+                           <canvas id="skillsChart"></canvas>
                         </div>
-                    </div>
-                    <div>
+                     </div>
+                     <div>
                         <h3 class="text-2xl font-bold mb-4" data-key="technical-skills-title">Technical Skills</h3>
                         <div class="flex flex-wrap gap-3">
                             <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full" data-key="skill-1">Strategic Planning & IT Leadership</span>
@@ -245,10 +206,9 @@
                             <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full" data-key="skill-8">KPIs & Performance Optimization</span>
                             <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full" data-key="skill-9">Change Management</span>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="mt-20">
+                     </div>
+                 </div>
+                 <div class="mt-20">
                     <h3 class="text-3xl font-bold text-center mb-4" data-key="projects-title">Key Projects & Achievements</h3>
                     <p class="text-gray-600 text-center mb-8 max-w-2xl mx-auto" data-key="projects-desc">A portfolio of significant accomplishments. Use the filters to explore projects based on their primary focus area.</p>
                     <div class="flex justify-center flex-wrap gap-3 mb-8">
@@ -280,26 +240,25 @@
                             <h4 class="font-bold text-lg" data-key="project-title-5">IT Support & Safety Systems</h4>
                             <p class="text-gray-600 mt-2 text-sm" data-key="project-desc-5">Created an internal technical support system and a digital safety incident reporting platform.</p>
                         </div>
-<div class="project-card bg-white p-6 rounded-lg shadow-md" data-category="infrastructure">
-    <h4 class="font-bold text-lg" data-key="project-title-6">Virtualization Migration</h4>
-    <p class="text-gray-600 mt-2 text-sm" data-key="project-desc-6">Migrated servers from Hyper-V to VMware.</p>
-</div>
+                        <div class="project-card bg-white p-6 rounded-lg shadow-md" data-category="infrastructure">
+                            <h4 class="font-bold text-lg" data-key="project-title-6">Virtualization Migration</h4>
+                            <p class="text-gray-600 mt-2 text-sm" data-key="project-desc-6">Migrated servers from Hyper-V to VMware.</p>
+                        </div>
 
-<div class="project-card bg-white p-6 rounded-lg shadow-md" data-category="infrastructure">
-    <h4 class="font-bold text-lg" data-key="project-title-7">Network & Data Center Modernization</h4>
-    <p class="text-gray-600 mt-2 text-sm" data-key="project-desc-7">Improved full network and data center setup.</p>
-</div>
+                        <div class="project-card bg-white p-6 rounded-lg shadow-md" data-category="infrastructure">
+                            <h4 class="font-bold text-lg" data-key="project-title-7">Network & Data Center Modernization</h4>
+                            <p class="text-gray-600 mt-2 text-sm" data-key="project-desc-7">Improved full network and data center setup.</p>
+                        </div>
 
-<div class="project-card bg-white p-6 rounded-lg shadow-md" data-category="security">
-    <h4 class="font-bold text-lg" data-key="project-title-8">Advanced CCTV System Implementation</h4>
-    <p class="text-gray-600 mt-2 text-sm" data-key="project-desc-8">Installed a full security camera system.</p>
-</div>
+                        <div class="project-card bg-white p-6 rounded-lg shadow-md" data-category="security">
+                            <h4 class="font-bold text-lg" data-key="project-title-8">Advanced CCTV System Implementation</h4>
+                            <p class="text-gray-600 mt-2 text-sm" data-key="project-desc-8">Installed a full security camera system.</p>
+                        </div>
 
-<div class="project-card bg-white p-6 rounded-lg shadow-md" data-category="systems">
-    <h4 class="font-bold text-lg" data-key="project-title-9">Land Surveying Maps System</h4>
-    <p class="text-gray-600 mt-2 text-sm" data-key="project-desc-9">Led the digital land survey mapping system.</p>
-</div>
-
+                        <div class="project-card bg-white p-6 rounded-lg shadow-md" data-category="systems">
+                            <h4 class="font-bold text-lg" data-key="project-title-9">Land Surveying Maps System</h4>
+                            <p class="text-gray-600 mt-2 text-sm" data-key="project-desc-9">Led the digital land survey mapping system.</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -337,6 +296,7 @@
                     </div>
                 </div>
             </section>
+
         </main>
 
         <footer id="contact" class="bg-gray-800 text-white">
@@ -350,386 +310,406 @@
                 </div>
             </div>
         </footer>
+    </div>
 
-    </div> <!-- End of resume-content container -->
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Language data object with all translations
-            const languageData = {
-'en': {
-    'modal-text': 'Please choose a language for the resume',
-    'name': 'Abdullah Alkhalaf',
-    'title': 'Senior Network & Systems Manager | Aspiring IT Leader',
-    'nav-overview': 'Overview',
-    'nav-experience': 'Experience',
-    'nav-skills': 'Skills & Projects',
-    'nav-contact': 'Contact',
-    'objective-title': 'Career Objective',
-    'objective-text': 'Experienced IT professional with over 10 years in managing networks and systems. Looking to grow into a leadership role to use technical skills, strategic thinking, and team management to deliver smart solutions, support digital change, and achieve strong results.',
-    'summary-title': 'Professional Summary',
-    'summary-text': 'A results-focused manager in networks and systems. Known for leading important tech projects that improve performance, security, and efficiency. Skilled in managing teams, improving IT systems, and aligning technology with business goals. Always brings creative ideas that add real value.',
-    'experience-title': 'Professional Experience',
-    'company-1': 'Air Medical Evacuation Directorate',
-    'company-2': 'General Directorate of Military Survey',
-    'job-title-1': 'Network & Systems Department Manager',
-    'job-period-1': 'Air Medical Evacuation Directorate – Riyadh, Saudi Arabia (2022 – Present)',
-    'duty-1-1': 'Led a digital transformation project with ERP and MRO systems.',
-    'duty-1-2': 'Improved current systems, set up internal email, and added device protection and backup.',
-    'duty-1-3': 'Managed planning and setup of a new data center.',
-    'duty-1-4': 'Handled server upgrades and moved from Hyper-V to VMware.',
-    'duty-1-5': 'Improved cybersecurity using firewalls, VPNs, and access controls.',
-    'duty-1-6': 'Managed and improved enterprise databases.',
-    'duty-1-7': 'Built internal platforms like a portal, support system, and safety reporting tool.',
-    'job-title-2': 'Network Department Manager',
-    'job-period-2': 'General Directorate of Military Survey – Riyadh, Saudi Arabia (2015 – 2022)',
-    'duty-2-1': 'Upgraded network and data center infrastructure.',
-    'duty-2-2': 'Installed advanced CCTV system.',
-    'duty-2-3': 'Led the new land survey mapping system project.',
-    'duty-2-4': 'Delivered tech projects for branches across different regions.',
-    'skills-projects-title': 'Skills & Key Projects',
-    'competencies-title': 'Core Competencies',
-    'competencies-desc': 'A visual chart showing key skills in technical, strategic, and management areas.',
-    'technical-skills-title': 'Technical Skills',
-    'skill-1': 'Strategic Planning & IT Leadership',
-    'skill-2': 'Network & Systems Infrastructure',
-    'skill-3': 'Database Administration',
-    'skill-4': 'Virtualization (VMware, Hyper-V)',
-    'skill-5': 'Cybersecurity & Data Protection',
-    'skill-6': 'Data Center Design',
-    'skill-7': 'Project & Budget Management',
-    'skill-8': 'KPIs & Performance Improvement',
-    'skill-9': 'Change Management',
-    'projects-title': 'Key Projects & Achievements',
-    'projects-desc': 'Explore projects by category.',
-    'filter-all': 'All',
-    'filter-transformation': 'Digital Transformation',
-    'filter-infrastructure': 'Infrastructure',
-    'filter-security': 'Security',
-    'filter-systems': 'Internal Systems',
-    'project-title-1': 'Digital Transformation',
-    'project-desc-1': 'Led ERP & MRO system setup to modernize operations.',
-    'project-title-2': 'Internal Digital Platforms',
-    'project-desc-2': 'Built platforms for services, news, and communication.',
-    'project-title-3': 'New Data Center Planning & Execution',
-    'project-desc-3': 'Planned and launched a secure, scalable data center.',
-    'project-title-4': 'Cybersecurity Enhancement',
-    'project-desc-4': 'Boosted network protection with firewalls and VPNs.',
-    'project-title-5': 'IT Support & Safety Systems',
-    'project-desc-5': 'Created internal support and safety reporting systems.',
-    'project-title-6': 'Virtualization Migration',
-    'project-desc-6': 'Migrated servers from Hyper-V to VMware.',
-    'project-title-7': 'Network & Data Center Modernization',
-    'project-desc-7': 'Improved full network and data center setup.',
-    'project-title-8': 'Advanced CCTV System Implementation',
-    'project-desc-8': 'Installed a full security camera system.',
-    'project-title-9': 'Land Surveying Maps System',
-    'project-desc-9': 'Led the digital land survey mapping system.',
-    'education-certs-title': 'Education & Certifications',
-    'education-title': 'Education',
-    'degree': 'Bachelor of Computer Engineering',
-    'university': 'Qassim University',
-    'degree-info': '2015 | Grade: Very Good',
-    'certs-title': 'Certifications & Training',
-    'cert-1': 'Project Management Professional (PMP) & Risk Management',
-    'cert-2': 'CCNA & CCNP – Switching & Routing',
-    'cert-3': 'Strategic Planning & Performance Governance',
-    'cert-4': 'Effective Communication & Quality Management',
-    'cert-5': 'Cybersecurity Fundamentals',
-    'cert-6': 'Organizational Culture & Team Building',
-    'cert-7': 'Leadership Qualification Program',
-    'cert-8': 'Organizational Agility & Change Management',
-    'cert-9': 'Building KPIs',
-    'cert-10': 'Strategic Thinking & Empowerment',
-    'cert-11': 'Monitoring & Evaluation',
-    'cert-12': 'Spending Efficiency Standards',
-    'cert-13': 'Quality Management & Institutional Excellence',
-    'contact-title': 'Get In Touch',
-    'contact-desc': 'I look forward to contributing to successful cooperation and achieving strategic goals',
-    'contact-location': '📍 Riyadh, Saudi Arabia',
-    'contact-phone': '📞 0558335544',
-    'contact-email': '✉️ eng.abdullah.alkhalaf@gmail.com',
-},
-                'ar': {
-    'modal-text': 'الرجاء اختيار لغة السيرة الذاتية',
-    'name': 'عبدالله الخلف',
-    'title': 'مدير أول للشبكات والأنظمة | يسعى لمنصب قيادي في تقنية المعلومات',
-    'nav-overview': 'نظرة عامة',
-    'nav-experience': 'الخبرة',
-    'nav-skills': 'المهارات والمشاريع',
-    'nav-contact': 'اتصل بي',
-    'objective-title': 'الهدف المهني',
-    'objective-text': 'متخصص في تقنية المعلومات بخبرة تزيد عن 10 سنوات في إدارة وتشغيل الشبكات والأنظمة داخل المؤسسات. يطمح للوصول إلى منصب قيادي في مجال التقنية، ويستخدم خبرته الفنية ورؤيته وخبرته في القيادة لتقديم حلول مبتكرة، ودعم التحول الرقمي، وتحقيق نتائج فعالة.',
-    'summary-title': 'الملخص المهني',
-    'summary-text': 'مدير شبكات وأنظمة يركز على النتائج، نجح في قيادة مشاريع تقنية مهمة حسّنت الأداء والأمان والكفاءة. لديه خبرة في إدارة فرق ومشاريع متعددة، وتطوير البنية التحتية، وربط التقنية بأهداف المؤسسة. معروف بتقديم حلول متقدمة تضيف قيمة حقيقية للعمل.',
-    'experience-title': 'الخبرة المهنية',
-    'company-1': 'إدارة الإخلاء الطبي الجوي',
-    'company-2': 'إدارة المساحة العسكرية',
-    'job-title-1': 'مدير قسم الشبكات والأنظمة',
-    'job-period-1': 'إدارة الإخلاء الطبي الجوي – الرياض، المملكة العربية السعودية (2022 - حتى الآن)',
-    'duty-1-1': 'قاد مشروع التحول الرقمي باستخدام أنظمة ERP وMRO.',
-    'duty-1-2': 'طوّر الأنظمة الحالية، وركّب بريد إلكتروني داخلي، وأضاف حماية ونسخ احتياطي للأجهزة.',
-    'duty-1-3': 'أدار تخطيط وتنفيذ مركز بيانات جديد.',
-    'duty-1-4': 'أشرف على ترقية الخوادم والترحيل من Hyper-V إلى VMware.',
-    'duty-1-5': 'عزّز الأمن السيبراني باستخدام جدران حماية وVPN وضوابط وصول.',
-    'duty-1-6': 'أدار قواعد البيانات وطوّرها.',
-    'duty-1-7': 'أنشأ منصات داخلية مثل بوابة إلكترونية، ونظام دعم، ونظام تقارير السلامة.',
-    'job-title-2': 'مدير قسم الشبكات',
-    'job-period-2': 'إدارة المساحة العسكرية – الرياض، المملكة العربية السعودية (2015 - 2022)',
-    'duty-2-1': 'طوّر البنية التحتية للشبكات ومركز البيانات.',
-    'duty-2-2': 'ركّب نظام مراقبة CCTV متقدم.',
-    'duty-2-3': 'قاد مشروع نظام خرائط المساحة الأرضية.',
-    'duty-2-4': 'نفّذ مشاريع تقنية لفروع الإدارة في مناطق مختلفة.',
-    'skills-projects-title': 'المهارات والمشاريع الرئيسية',
-    'competencies-title': 'الكفاءات الأساسية',
-    'competencies-desc': 'رسم بياني يوضح المهارات الأساسية في المجالات التقنية والإدارية والتخطيط.',
-    'technical-skills-title': 'المهارات الفنية',
-    'skill-1': 'التخطيط الاستراتيجي وقيادة التقنية',
-    'skill-2': 'الشبكات والبنية التحتية',
-    'skill-3': 'إدارة قواعد البيانات',
-    'skill-4': 'المحاكاة الافتراضية (VMware، Hyper-V)',
-    'skill-5': 'الأمن السيبراني وحماية البيانات',
-    'skill-6': 'تصميم مراكز البيانات',
-    'skill-7': 'إدارة المشاريع والميزانيات',
-    'skill-8': 'مؤشرات الأداء وتحسين الأداء',
-    'skill-9': 'إدارة التغيير',
-    'projects-title': 'المشاريع والإنجازات الرئيسية',
-    'projects-desc': 'استعرض المشاريع حسب الفئة.',
-    'filter-all': 'الكل',
-    'filter-transformation': 'التحول الرقمي',
-    'filter-infrastructure': 'البنية التحتية',
-    'filter-security': 'الأمن',
-    'filter-systems': 'الأنظمة الداخلية',
-    'project-title-1': 'التحول الرقمي',
-    'project-desc-1': 'تنفيذ أنظمة ERP وMRO لتحديث العمليات.',
-    'project-title-2': 'المنصات الرقمية الداخلية',
-    'project-desc-2': 'بناء منصات للخدمات والأخبار والتواصل.',
-    'project-title-3': 'تخطيط وتنفيذ مركز بيانات جديد',
-    'project-desc-3': 'إطلاق مركز بيانات آمن وقابل للتوسع.',
-    'project-title-4': 'تعزيز الأمن السيبراني',
-    'project-desc-4': 'تحسين حماية الشبكة باستخدام جدران حماية وVPN.',
-    'project-title-5': 'أنظمة الدعم والسلامة',
-    'project-desc-5': 'إنشاء نظام دعم داخلي ونظام تقارير السلامة.',
-    'project-title-6': 'ترحيل المحاكاة الافتراضية',
-    'project-desc-6': 'ترحيل الخوادم من Hyper-V إلى VMware.',
-    'project-title-7': 'تحديث الشبكة ومركز البيانات',
-    'project-desc-7': 'تحسين إعداد الشبكة ومركز البيانات بالكامل.',
-    'project-title-8': 'تركيب نظام CCTV متقدم',
-    'project-desc-8': 'تركيب نظام كاميرات مراقبة شامل.',
-    'project-title-9': 'نظام خرائط المساحة الأرضية',
-    'project-desc-9': 'قيادة مشروع نظام خرائط رقمية للمساحة العسكرية.',
-    'education-certs-title': 'التعليم والشهادات',
-    'education-title': 'التعليم',
-    'degree': 'بكالوريوس هندسة الحاسب',
-    'university': 'جامعة القصيم',
-    'degree-info': '2015 | التقدير: جيد جدًا',
-    'certs-title': 'الشهادات والدورات',
-    'cert-1': 'إدارة المشاريع الاحترافية (PMP) وإدارة المخاطر',
-    'cert-2': 'CCNA وCCNP – التبديل والتوجيه',
-    'cert-3': 'التخطيط الاستراتيجي وحوكمة الأداء',
-    'cert-4': 'الاتصال الفعّال وإدارة الجودة',
-    'cert-5': 'أساسيات الأمن السيبراني',
-    'cert-6': 'الثقافة التنظيمية وبناء الفرق',
-    'cert-7': 'برنامج إعداد القادة',
-    'cert-8': 'المرونة التنظيمية وإدارة التغيير',
-    'cert-9': 'بناء مؤشرات الأداء',
-    'cert-10': 'التفكير الاستراتيجي والتمكين',
-    'cert-11': 'الرصد والتقييم',
-    'cert-12': 'معايير كفاءة الإنفاق',
-    'cert-13': 'إدارة الجودة والتميز المؤسسي',
-    'contact-title': 'للتواصل',
-    'contact-desc': 'أتطلع للمساهمة في بناء تعاون ناجح وتحقيق أهداف استراتيجية',
-    'contact-location': '📍 الرياض، المملكة العربية السعودية',
-    'contact-phone': '📞 0558335544',
-    'contact-email': '✉️ eng.abdullah.alkhalaf@gmail.com',
-}
+    document.addEventListener('DOMContentLoaded', function () {
+        // --- 1. DATA & CONSTANTS ---
+        const languageData = {
+            'en': {
+                'modal-text': 'Please choose a language for the resume',
+                'name': 'Abdullah Alkhalaf',
+                'title': 'Senior Network & Systems Manager | Aspiring IT Director',
+                'nav-overview': 'Overview',
+                'nav-experience': 'Experience',
+                'nav-skills': 'Skills & Projects',
+                'nav-contact': 'Contact',
+                'objective-title': 'Career Objective',
+                'objective-text': 'Strategic-minded IT professional with over 10 years of experience in managing and leading enterprise network and systems operations. Aspiring to advance into a senior IT leadership role to leverage technical expertise, strategic vision, and leadership skills in delivering innovative solutions, driving digital transformation, and achieving impactful business results.',
+                'summary-title': 'Professional Summary',
+                'summary-text': 'Results-driven Senior Manager in Network and Systems Management, recognized for successfully leading high-impact technology initiatives that enhance operational efficiency, security, and performance. Brings extensive experience in directing cross-functional projects, optimizing IT infrastructure, and aligning technology strategies with organizational goals. Known for consistently delivering forward-thinking solutions—often beyond defined responsibilities—that drive measurable value and operational excellence across the enterprise.',
+                'experience-title': 'Professional Experience',
+                'company-1': 'Air Medical Evacuation Directorate',
+                'company-2': 'General Directorate of Military Survey',
+                'job-title-1': 'Network & Systems Department Manager',
+                'job-period-1': 'Air Medical Evacuation Directorate – Riyadh, Saudi Arabia (2022 – Present)',
+                'duty-1-1': 'Led the Digital Transformation Project, including planning and implementing ERP and MRO systems with international partners.',
+                'duty-1-2': 'Developed and updated existing systems, installed internal email systems, and implemented device protection and backup solutions.',
+                'duty-1-3': 'Supervised the planning and execution of a new data center.',
+                'duty-1-4': 'Oversaw the installation and update of new servers and the migration from Hyper-V to VMware.',
+                'duty-1-5': 'Strengthened cybersecurity using firewalls, VPNs, and modern controls.',
+                'duty-1-6': 'Managed and upgraded enterprise databases.',
+                'duty-1-7': 'Created digital platforms to serve and facilitate department work, suchs as the internal portal (electronic services, news), a technical support system, and a safety reporting system.',
+                'job-title-2': 'Network Department Manager',
+                'job-period-2': 'General Directorate of Military Survey – Riyadh, Saudi Arabia (2015 – 2022)',
+                'duty-2-1': 'Modernized network and data center infrastructure.',
+                'duty-2-2': 'Installed an advanced CCTV system.',
+                'duty-2-3': 'Supervised the new land surveying maps system project.',
+                'duty-2-4': 'Implemented multiple projects for the directorate\'s branches in various regions.',
+                'skills-projects-title': 'Skills & Key Projects',
+                'competencies-title': 'Core Competencies',
+                'competencies-desc': 'A visual representation of key skill areas, demonstrating a well-rounded expertise in technical, strategic, and managerial domains.',
+                'technical-skills-title': 'Technical Skills',
+                'skill-1': 'Strategic Planning & IT Leadership',
+                'skill-2': 'Network & Systems Infrastructure',
+                'skill-3': 'Database Administration',
+                'skill-4': 'Virtualization (VMware, Hyper-V)',
+                'skill-5': 'Cybersecurity & Data Protection',
+                'skill-6': 'Data Center Design',
+                'skill-7': 'Project & Budget Management',
+                'skill-8': 'KPIs & Performance Optimization',
+                'skill-9': 'Change Management',
+                'projects-title': 'Key Projects & Achievements',
+                'projects-desc': 'A portfolio of significant accomplishments. Use the filters to explore projects based on their primary focus area.',
+                'filter-all': 'All',
+                'filter-transformation': 'Digital Transformation',
+                'filter-infrastructure': 'Infrastructure',
+                'filter-security': 'Security',
+                'filter-systems': 'Internal Systems',
+                'project-title-1': 'Digital Transformation',
+                'project-desc-1': 'Led ERP & MRO system implementation, modernizing core processes.',
+                'project-title-2': 'Internal Digital Platforms',
+                'project-desc-2': 'Developed in-house platforms for electronic services, news, and enhanced communication.',
+                'project-title-3': 'New Data Center Planning & Execution',
+                'project-desc-3': 'Designed and deployed a modern, secure, and scalable high-availability data center.',
+                'project-title-4': 'Cybersecurity Enhancement',
+                'project-desc-4': 'Strengthened network security with advanced firewalls, VPNs, and access controls.',
+                'project-title-5': 'IT Support & Safety Systems',
+                'project-desc-5': 'Created an internal technical support system and a digital safety incident reporting platform.',
+                'project-title-6': 'Virtualization Migration',
+                'project-desc-6': 'Migrated servers from Hyper-V to VMware.',
+                'project-title-7': 'Network & Data Center Modernization',
+                'project-desc-7': 'Improved full network and data center setup.',
+                'project-title-8': 'Advanced CCTV System Implementation',
+                'project-desc-8': 'Installed a full security camera system.',
+                'project-title-9': 'Land Surveying Maps System',
+                'project-desc-9': 'Led the digital land survey mapping system.',
+                'education-certs-title': 'Education & Certifications',
+                'education-title': 'Education',
+                'degree': 'Bachelor of Computer Engineering',
+                'university': 'Qassim University',
+                'degree-info': '2015 | Grade: Very Good',
+                'certs-title': 'Certifications & Training',
+                'cert-1': 'Project Management Professional (PMP) & Risk Management',
+                'cert-2': 'CCNA & CCNP – Switching & Routing',
+                'cert-3': 'Strategic Planning & Performance Governance (Balanced Scorecard)',
+                'cert-4': 'Effective Communication, Quality Management & Efficiency',
+                'cert-5': 'Fundamentals of Cybersecurity',
+                'cert-6': 'The Role of Organizational Culture in Building Effective Organizations',
+                'cert-7': 'Leadership Qualification Program',
+                'cert-8': 'Organizational Agility & Change Management',
+                'cert-9': 'Building Key Performance Indicators (KPIs)',
+                'cert-10': 'Strategic Thinking, Leadership & Empowerment',
+                'cert-11': 'Monitoring & Evaluation',
+                'cert-12': 'Expenditure Efficiency Standards & Practices',
+                'cert-13': 'Principles of Quality Management Systems & Institutional Excellence',
+                'contact-title': 'Get In Touch',
+                'contact-desc': 'Open to new opportunities and collaborations.',
+                'contact-location': '📍 Riyadh, Saudi Arabia',
+                'contact-phone': '📞 0558335544',
+                'contact-email': '✉️ eng.abdullah.alkhalaf@gmail.com',
+                'chart-label-1': 'IT Leadership',
+                'chart-label-2': 'Cybersecurity',
+                'chart-label-3': 'Infrastructure',
+                'chart-label-4': 'Project Mgmt',
+                'chart-label-5': 'Change Mgmt',
+            },
+            'ar': {
+                'modal-text': 'الرجاء اختيار لغة السيرة الذاتية',
+                'name': 'عبدالله الخلف',
+                'title': 'مدير أول للشبكات والأنظمة | يسعى لمنصب قيادي في تقنية المعلومات',
+                'nav-overview': 'نظرة عامة',
+                'nav-experience': 'الخبرة',
+                'nav-skills': 'المهارات والمشاريع',
+                'nav-contact': 'اتصل بي',
+                'objective-title': 'الهدف المهني',
+                'objective-text': 'متخصص في تقنية المعلومات بخبرة تزيد عن 10 سنوات في إدارة وتشغيل الشبكات والأنظمة داخل المؤسسات. يطمح للوصول إلى منصب قيادي في مجال التقنية، ويستخدم خبرته الفنية ورؤيته وخبرته في القيادة لتقديم حلول مبتكرة، ودعم التحول الرقمي، وتحقيق نتائج فعالة.',
+                'summary-title': 'الملخص المهني',
+                'summary-text': 'مدير شبكات وأنظمة يركز على النتائج، نجح في قيادة مشاريع تقنية مهمة حسّنت الأداء والأمان والكفاءة. لديه خبرة في إدارة فرق ومشاريع متعددة، وتطوير البنية التحتية، وربط التقنية بأهداف المؤسسة. معروف بتقديم حلول متقدمة تضيف قيمة حقيقية للعمل.',
+                'experience-title': 'الخبرة المهنية',
+                'company-1': 'إدارة الإخلاء الطبي الجوي',
+                'company-2': 'إدارة المساحة العسكرية',
+                'job-title-1': 'مدير قسم الشبكات والأنظمة',
+                'job-period-1': 'إدارة الإخلاء الطبي الجوي – الرياض، المملكة العربية السعودية (2022 - حتى الآن)',
+                'duty-1-1': 'قاد مشروع التحول الرقمي باستخدام أنظمة ERP وMRO.',
+                'duty-1-2': 'طوّر الأنظمة الحالية، وركّب بريد إلكتروني داخلي، وأضاف حماية ونسخ احتياطي للأجهزة.',
+                'duty-1-3': 'أدار تخطيط وتنفيذ مركز بيانات جديد.',
+                'duty-1-4': 'أشرف على ترقية الخوادم والترحيل من Hyper-V إلى VMware.',
+                'duty-1-5': 'عزّز الأمن السيبراني باستخدام جدران حماية وVPN وضوابط وصول.',
+                'duty-1-6': 'أدار قواعد البيانات وطوّرها.',
+                'duty-1-7': 'أنشأ منصات داخلية مثل بوابة إلكترونية، ونظام دعم، ونظام تقارير السلامة.',
+                'job-title-2': 'مدير قسم الشبكات',
+                'job-period-2': 'إدارة المساحة العسكرية – الرياض، المملكة العربية السعودية (2015 – 2022)',
+                'duty-2-1': 'حدث البنية التحتية للشبكات ومركز البيانات.',
+                'duty-2-2': 'ركّب نظام كاميرات مراقبة متطور.',
+                'duty-2-3': 'أشرف على مشروع نظام الخرائط المساحية الجديد.',
+                'duty-2-4': 'نفّذ مشاريع تقنية لفروع الإدارة في مناطق مختلفة.',
+                'skills-projects-title': 'المهارات والمشاريع الرئيسية',
+                'competencies-title': 'الكفاءات الأساسية',
+                'competencies-desc': 'عرض مرئي للمهارات الرئيسية في المجالات التقنية، الاستراتيجية، والإدارية.',
+                'technical-skills-title': 'المهارات الفنية',
+                'skill-1': 'التخطيط الاستراتيجي وقيادة تقنية المعلومات',
+                'skill-2': 'البنية التحتية للشبكات والأنظمة',
+                'skill-3': 'إدارة قواعد البيانات',
+                'skill-4': 'الأنظمة الافتراضية (VMware, Hyper-V)',
+                'skill-5': 'الأمن السيبراني وحماية البيانات',
+                'skill-6': 'تصميم مراكز البيانات',
+                'skill-7': 'إدارة المشاريع والميزانيات',
+                'skill-8': 'مؤشرات الأداء الرئيسية وتحسين الأداء',
+                'skill-9': 'إدارة التغيير',
+                'projects-title': 'أبرز المشاريع والإنجازات',
+                'projects-desc': 'تصفح المشاريع حسب التصنيف.',
+                'filter-all': 'الكل',
+                'filter-transformation': 'التحول الرقمي',
+                'filter-infrastructure': 'البنية التحتية',
+                'filter-security': 'الأمن',
+                'filter-systems': 'الأنظمة الداخلية',
+                'project-title-1': 'التحول الرقمي',
+                'project-desc-1': 'قاد مشروع إعداد أنظمة ERP و MRO لتحديث العمليات.',
+                'project-title-2': 'المنصات الرقمية الداخلية',
+                'project-desc-2': 'أنشأ منصات للخدمات والأخبار والتواصل.',
+                'project-title-3': 'تخطيط وتنفيذ مركز بيانات جديد',
+                'project-desc-3': 'خطط وأطلق مركز بيانات آمن وقابل للتطوير.',
+                'project-title-4': 'تعزيز الأمن السيبراني',
+                'project-desc-4': 'عزز حماية الشبكة بجدران الحماية والشبكات الخاصة الافتراضية (VPNs).',
+                'project-title-5': 'أنظمة الدعم الفني والسلامة',
+                'project-desc-5': 'صنع أنظمة داخلية للدعم الفني وتقارير السلامة.',
+                'project-title-6': 'ترحيل الأنظمة الافتراضية',
+                'project-desc-6': 'رحّل الخوادم من Hyper-V إلى VMware.',
+                'project-title-7': 'تحديث الشبكات ومركز البيانات',
+                'project-desc-7': 'حدث إعداد الشبكات ومركز البيانات بالكامل.',
+                'project-title-8': 'تنفيذ نظام كاميرات مراقبة متطور',
+                'project-desc-8': 'ركب نظام كاميرات مراقبة كامل.',
+                'project-title-9': 'نظام الخرائط المساحية',
+                'project-desc-9': 'قاد نظام رسم الخرائط المساحية الرقمي.',
+                'education-certs-title': 'التعليم والشهادات',
+                'education-title': 'التعليم',
+                'degree': 'بكالوريوس هندسة حاسب آلي',
+                'university': 'جامعة القصيم',
+                'degree-info': '2015 | التقدير: جيد جداً',
+                'certs-title': 'الشهادات والتدريب',
+                'cert-1': 'محترف إدارة المشاريع (PMP) وإدارة المخاطر',
+                'cert-2': 'CCNA و CCNP – الشبكات والتوجيه',
+                'cert-3': 'التخطيط الاستراتيجي وحوكمة الأداء (بطاقة الأداء المتوازن)',
+                'cert-4': 'التواصل الفعال وإدارة الجودة والكفاءة',
+                'cert-5': 'أساسيات الأمن السيبراني',
+                'cert-6': 'دور الثقافة التنظيمية في بناء المنظمات الفعالة',
+                'cert-7': 'برنامج تأهيل القيادات',
+                'cert-8': 'المرونة التنظيمية وإدارة التغيير',
+                'cert-9': 'بناء مؤشرات الأداء الرئيسية (KPIs)',
+                'cert-10': 'التفكير الاستراتيجي والقيادة والتمكين',
+                'cert-11': 'الرقابة والتقييم',
+                'cert-12': 'معايير وممارسات كفاءة الإنفاق',
+                'cert-13': 'مبادئ أنظمة إدارة الجودة والتميز المؤسسي',
+                'contact-title': 'للتواصل',
+                'contact-desc': 'أتطلع للمساهمة في تعاون ناجح وتحقيق أهداف استراتيجية.',
+                'contact-location': '📍 الرياض، المملكة العربية السعودية',
+                'contact-phone': '📞 0558335544',
+                'contact-email': '✉️ eng.abdullah.alkhalaf@gmail.com',
+                'chart-label-1': 'قيادة تقنية المعلومات',
+                'chart-label-2': 'الأمن السيبراني',
+                'chart-label-3': 'البنية التحتية',
+                'chart-label-4': 'إدارة المشاريع',
+                'chart-label-5': 'إدارة التغيير',
+            },
+        };
 
+        // DOM Elements
+        const langModal = document.getElementById('language-modal');
+        const resumeContent = document.getElementById('resume-content');
+        const confirmLangBtn = document.getElementById('confirm-lang-button');
+        const langEnBtn = document.getElementById('lang-en');
+        const langArBtn = document.getElementById('lang-ar');
+        let selectedLang = null;
+        let skillsChartInstance = null;
+
+        
+        // --- 2. INITIALIZATION ---
+        initLanguageSelection();
+        initExperienceTabs();
+        initProjectFilters();
+        initMobileMenu();
+        initNavScrollspy();
+
+
+        // --- 3. CORE FUNCTIONS ---
+
+        /** Handles the initial language selection modal. */
+        function initLanguageSelection() {
+            const selectLanguage = (lang) => {
+                selectedLang = lang;
+                langEnBtn.classList.toggle('selected', lang === 'en');
+                langArBtn.classList.toggle('selected', lang === 'ar');
+                confirmLangBtn.classList.remove('hidden');
+                confirmLangBtn.textContent = lang === 'ar' ? 'تأكيد' : 'Confirm';
             };
             
-            let skillsChartInstance = null; // Variable to hold the Chart.js instance
+            langEnBtn.addEventListener('click', () => selectLanguage('en'));
+            langArBtn.addEventListener('click', () => selectLanguage('ar'));
 
-            // Function to apply translations and RTL/LTR direction
-            function translate(lang) {
-                document.querySelectorAll('[data-key]').forEach(element => {
-                    const key = element.getAttribute('data-key');
-                    if (languageData[lang][key]) {
-                        element.textContent = languageData[lang][key];
-                    }
-                });
-
-                document.documentElement.lang = lang;
-                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-
-                // Re-create the chart with new labels
-                createOrUpdateChart(lang);
-            }
-
-            // Function to create or update the skills chart
-            function createOrUpdateChart(lang) {
-                const ctx = document.getElementById('skillsChart').getContext('2d');
-                if (skillsChartInstance) {
-                    skillsChartInstance.destroy(); // Destroy previous instance if it exists
+            confirmLangBtn.addEventListener('click', () => {
+                if (selectedLang) {
+                    applyLanguage(selectedLang);
+                    langModal.classList.add('hidden');
+                    resumeContent.classList.remove('hidden');
                 }
+            });
+        }
 
-                const chartLabels = [
-                    languageData[lang]['skill-1'], // Strategic Planning & IT Leadership
-                    languageData[lang]['skill-2'], // Network & Systems Infrastructure
-                    languageData[lang]['skill-3'], // Database Administration
-                    languageData[lang]['skill-4'], // Virtualization (VMware, Hyper-V)
-                    languageData[lang]['skill-5'], // Cybersecurity & Data Protection
-                    languageData[lang]['skill-6'], // Data Center Design
-                    languageData[lang]['skill-7'], // Project & Budget Management
-                    languageData[lang]['skill-8'], // KPIs & Performance Optimization
-                ];
+        /**
+         * Applies the selected language to the page, including text and directionality.
+         * @param {string} lang - The selected language ('en' or 'ar').
+         */
+        function applyLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
 
-                skillsChartInstance = new Chart(ctx, {
-                    type: 'radar',
-                    data: {
-                        labels: chartLabels,
-                        datasets: [{
-                            label: 'Level of Expertise',
-                            data: [9, 9, 7, 8, 8, 8, 9, 8], // Example data points
-                            backgroundColor: 'rgba(74, 144, 226, 0.2)',
-                            borderColor: '#4A90E2',
-                            pointBackgroundColor: '#4A90E2',
-                            pointBorderColor: '#fff',
-                            pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: '#4A90E2'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: false,
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (languageData[lang] && languageData[lang][key]) {
+                    element.innerHTML = languageData[lang][key];
+                }
+            });
+            
+            if (skillsChartInstance) skillsChartInstance.destroy();
+            initSkillsChart(lang);
+        }
+        
+        /**
+         * Initializes the skills chart with translated labels.
+         * @param {string} lang - The current language.
+         */
+        function initSkillsChart(lang) {
+            const ctx = document.getElementById('skillsChart')?.getContext('2d');
+            if (!ctx) return;
+            
+            const isArabic = lang === 'ar';
+            const labels = isArabic ? 
+                [languageData['ar']['chart-label-1'], languageData['ar']['chart-label-2'], languageData['ar']['chart-label-3'], languageData['ar']['chart-label-4'], languageData['ar']['chart-label-5']] :
+                [languageData['en']['chart-label-1'], languageData['en']['chart-label-2'], languageData['en']['chart-label-3'], languageData['en']['chart-label-4'], languageData['en']['chart-label-5']];
+            
+            skillsChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: isArabic ? 'الكفاءات الأساسية' : 'Core Competencies',
+                        data: [90, 85, 80, 95, 75],
+                        backgroundColor: 'rgba(74, 144, 226, 0.2)',
+                        borderColor: 'rgba(74, 144, 226, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false } ,
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItem) {
+                                    return languageData[lang]['competencies-title'];
+                                },
                             },
                         },
-                        scales: {
-                            r: {
-                                angleLines: {
-                                    color: 'rgba(0, 0, 0, 0.1)',
-                                },
-                                grid: {
-                                    color: 'rgba(0, 0, 0, 0.1)',
-                                },
-                                pointLabels: {
-                                    font: {
-                                        size: 14
-                                    },
-                                    color: '#2c3e50',
-                                },
-                                ticks: {
-                                    display: false,
-                                    max: 10,
-                                    min: 0,
-                                    stepSize: 1,
-                                },
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { display: false },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: { display: false },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: {
+                                color: '#2c3e50',
+                                font: {
+                                    size: 14,
+                                    family: 'Inter, "Noto Sans Arabic", sans-serif'
+                                }
                             }
                         }
                     }
-                });
-            }
-
-            // --- Language Modal Logic ---
-            const languageModal = document.getElementById('language-modal');
-            const confirmBtn = document.getElementById('confirm-lang-button');
-            const resumeContent = document.getElementById('resume-content');
-            let selectedLanguage = 'en'; // Default language
-
-            document.getElementById('lang-en').addEventListener('click', () => {
-                selectedLanguage = 'en';
-                document.querySelectorAll('.language-button').forEach(btn => btn.classList.remove('selected'));
-                document.getElementById('lang-en').classList.add('selected');
-                confirmBtn.classList.remove('hidden');
+                }
             });
+        }
 
-            document.getElementById('lang-ar').addEventListener('click', () => {
-                selectedLanguage = 'ar';
-                document.querySelectorAll('.language-button').forEach(btn => btn.classList.remove('selected'));
-                document.getElementById('lang-ar').classList.add('selected');
-                confirmBtn.classList.remove('hidden');
-            });
+        /** Initializes the tabbing functionality for the experience section. */
+        function initExperienceTabs() {
+            const tabContainer = document.querySelector('[data-tab="saudi-medevac"]');
+            if (!tabContainer) return;
+            const tabParent = tabContainer.parentElement;
 
-            confirmBtn.addEventListener('click', () => {
-                languageModal.classList.add('hidden');
-                resumeContent.classList.remove('hidden');
-                translate(selectedLanguage);
-            });
-
-            // --- Experience Tabs Logic ---
-            const tabButtons = document.querySelectorAll('.tab-button');
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-
-                    document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
-                    document.getElementById(button.dataset.tab).classList.remove('hidden');
-                });
-            });
-
-            // --- Project Filter Logic ---
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const projectCards = document.querySelectorAll('.project-card');
-
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
+            tabParent.addEventListener('click', (e) => {
+                if (e.target.closest('.tab-button')) {
+                    const button = e.target.closest('.tab-button');
+                    const tabId = button.dataset.tab;
+                    
+                    tabParent.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
                     
-                    const filter = button.dataset.filter;
-                    projectCards.forEach(card => {
-                        if (filter === 'all' || card.dataset.category === filter) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+                    document.getElementById(tabId)?.classList.remove('hidden');
+                }
             });
+        }
 
-            // --- Mobile Menu Logic ---
+        /** Initializes the filtering for the projects grid using event delegation. */
+        function initProjectFilters() {
+            const filterContainer = document.querySelector('[data-filter="all"]');
+            if (!filterContainer) return;
+            const filterParent = filterContainer.parentElement;
+            const projects = document.querySelectorAll('.project-card');
+
+            filterParent.addEventListener('click', (e) => {
+                if (e.target.closest('.filter-btn')) {
+                    const button = e.target.closest('.filter-btn');
+                    const filter = button.dataset.filter;
+
+                    filterParent.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    projects.forEach(project => {
+                        project.style.display = (filter === 'all' || project.dataset.category === filter) ? 'block' : 'none';
+                    });
+                }
+            });
+        }
+
+        /** Initializes the mobile navigation menu toggle. */
+        function initMobileMenu() {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            if (!mobileMenuButton || !mobileMenu) return;
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
-            // Hide mobile menu when a link is clicked
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                });
-            });
+        }
+        
+        /** Highlights the current navigation link based on scroll position. */
+        function initNavScrollspy() {
+            const sections = document.querySelectorAll('main section[id]');
+            const navLinks = document.querySelectorAll('header .nav-link');
+            if (!sections || !navLinks) return;
 
-            // --- Navigation Active State Logic ---
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
-            const allNavLinks = [...navLinks, ...mobileNavLinks];
-            
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.id;
-                        allNavLinks.forEach(link => {
-                            if (link.getAttribute('href') === `#${id}`) {
-                                link.classList.add('active');
-                            } else {
-                                link.classList.remove('active');
-                            }
-                        });
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 150) {
+                        current = section.getAttribute('id');
                     }
                 });
-            }, { rootMargin: '-30% 0px -70% 0px' }); // Adjusted root margin for better active state detection
 
-            sections.forEach(section => {
-                observer.observe(section);
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
             });
-            
-            // Initial call to set the default chart
-            createOrUpdateChart(selectedLanguage);
-        });
+        }
+    });
     </script>
 </body>
 </html>
