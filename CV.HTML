@@ -164,7 +164,7 @@
                                 <li data-key="duty-1-4">Oversaw the installation and update of new servers and the migration from Hyper-V to VMware.</li>
                                 <li data-key="duty-1-5">Strengthened cybersecurity using firewalls, VPNs, and modern controls.</li>
                                 <li data-key="duty-1-6">Managed and upgraded enterprise databases.</li>
-                                <li data-key="duty-1-7">Created digital platforms to serve and facilitate department work, such as the internal portal (electronic services, news), a technical support system, and a safety reporting system.</li>
+                                <li data-key="duty-1-7">Created digital platforms to serve and facilitate department work, suchs as the internal portal (electronic services, news), a technical support system, and a safety reporting system.</li>
                             </ul>
                         </div>
                     </div>
@@ -572,8 +572,14 @@
                 }
             });
             
+            // --- FIX: The chart needs to be initialized after the DOM has fully rendered
+            // its new layout based on the language, especially for 'rtl'
             if (skillsChartInstance) skillsChartInstance.destroy();
-            initSkillsChart(lang);
+            // Using requestAnimationFrame ensures the browser has completed the layout pass
+            // before we try to draw the chart, which resolves the mobile display issue.
+            window.requestAnimationFrame(() => {
+                initSkillsChart(lang);
+            });
         }
         
         /**
@@ -709,6 +715,17 @@
                 });
             });
         }
+
+        // --- NEW: Add a resize event listener to ensure the chart is redrawn when the window size changes.
+        // This is especially useful for mobile devices changing orientation.
+        window.addEventListener('resize', () => {
+             if (skillsChartInstance) {
+                // The destroy and re-create pattern is the most reliable for Chart.js
+                const currentLang = document.documentElement.lang;
+                skillsChartInstance.destroy();
+                initSkillsChart(currentLang);
+             }
+        });
     });
     </script>
 </body>
